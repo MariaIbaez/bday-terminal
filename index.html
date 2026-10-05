@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Terminal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card-bg: #151b23;
+      --border: #30363d;
+      --green: #2ea043;
+      --accent: #58a6ff;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --red: #f85149;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      padding: 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .container { width: 100%; max-width: 680px; margin-top: 1rem; }
+    .window {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+    .window-header {
+      background: #0e1217;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+    .dot-red { background-color: #ff5f56; }
+    .dot-yellow { background-color: #ffbd2e; }
+    .dot-green { background-color: #27c93f; }
+    .window-title { color: var(--text-muted); font-size: 0.8rem; margin-left: 0.5rem; }
+    .window-body { padding: 1.5rem; line-height: 1.6; }
+    .locked-view { text-align: center; padding: 2rem 1rem; }
+    .timer { font-size: 1.8rem; font-weight: 700; color: #e3b341; margin: 1.5rem 0; letter-spacing: 2px; }
+    .unlocked-view { display: none; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .stat-card {
+      background: #0e1217;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .stat-val { font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+    .stat-lbl { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .timeline { margin-top: 2rem; border-left: 2px solid var(--border); padding-left: 1.2rem; margin-left: 0.5rem; }
+    .event { position: relative; margin-bottom: 2rem; }
+    .event::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.2rem - 6px);
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      background: var(--green);
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+    }
+    .event-tag { font-size: 0.75rem; color: var(--green); font-weight: 700; }
+    .event-title { font-size: 1.05rem; font-weight: 700; color: #fff; margin: 0.2rem 0; }
+    .event-desc { font-size: 0.88rem; color: var(--text-muted); }
+    .terminal-box {
+      background: #000;
+      border: 1px solid #238636;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+    }
+    .code-line { color: var(--green); font-weight: 700; word-break: break-all; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="window">
+    <div class="window-header">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-yellow"></span>
+      <span class="dot dot-green"></span>
+      <span class="window-title">bash — session://nov06-protocol</span>
+    </div>
+    <div class="window-body">
+      <!-- VISTA BLOQUEADA -->
+      <div id="lockedView" class="locked-view">
+        <p style="color: var(--red); font-weight: bold;">[403 FORBIDDEN] ACCESO RESTRINGIDO</p>
+        <p style="color: var(--text-muted); margin-top: 0.5rem;">Cifrado temporal activado. El protocolo solo se ejecutará a las 00:00:00 (EST) de tu cumpleaños.</p>
+        <div class="timer" id="countdown">--d --h --m --s</div>
+        <p style="font-size: 0.8rem; color: var(--text-muted);">
+          Detectado intento de lectura remota.<br>Tranquilo, hacker. Espera al 6 de noviembre.
+        </p>
+      </div>
+
+      <!-- VISTA DESBLOQUEADA -->
+      <div id="unlockedView" class="unlocked-view">
+        <p style="color: var(--green); font-weight: bold;">[200 OK] CARGANDO PROTOCOLO COMPLETO...</p>
+        <h2 style="color: #fff; margin: 0.8rem 0 0.3rem 0;">¡Feliz cumpleaños! ❤️</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Aunque haya 6.000 km de por medio, cada detalle de esa caja va directo desde casa.
+        </p>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-val">5.800+</div>
+            <div class="stat-lbl">KM DISTANCIA</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">0</div>
+            <div class="stat-lbl">LATENCIAS</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val">100%</div>
+            <div class="stat-lbl">UPTIME</div>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="event">
+            <span class="event-tag">// COMMIT 001 - EL ORIGEN</span>
+            <div class="event-title">El día que empezó todo</div>
+            <p class="event-desc">De cruzarnos por casualidad a no parar de hablar ni un solo día.</p>
+            <img src="foto1.jpg" alt="Recuerdo" style="width:100%; border-radius:8px; margin-top:0.8rem; border:1px solid var(--border); display:block;">
+          </div>
+          <div class="event">
+            <span class="event-tag">// COMMIT 002 - RIDGEWOOD, QUEENS</span>
+            <div class="event-title">Tu etapa en Nueva York</div>
+            <p class="event-desc">Verte currar, adaptarte y construir tu camino allí. Muy orgullosa de ti.</p>
+            <img src="foto2.jpg" alt="NY" style="width:100%; border-radius:8px; margin-top:0.8rem; border:1px solid var(--border); display:block;">
+          </div>
+        </div>
+
+        <div class="terminal-box">
+          <p style="color: var(--text-muted); margin-bottom: 0.5rem;"># Para desbloquear el candado físico de la caja:</p>
+          <p class="code-line">$ git clone https://github.com/MariaIbaez/bday-protocol-2026.git</p>
+          <p class="code-line">$ python decrypt.py</p>
+          <p style="color: var(--text-muted); font-size: 0.75rem; margin-top: 0.8rem;">
+            Ejecuta el script en tu terminal. La respuesta a las preguntas liberará la combinación.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 6 de noviembre de 2026 a las 00:00:00 (EST Nueva York, UTC-5)
+  const targetDate = new Date('2026-11-06T00:00:00-05:00').getTime();
+
+  function updateStatus() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    const lockedView = document.getElementById('lockedView');
+    const unlockedView = document.getElementById('unlockedView');
+    const countdownEl = document.getElementById('countdown');
+
+    if (distance > 0) {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdownEl.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    } else {
+      lockedView.style.display = 'none';
+      unlockedView.style.display = 'block';
+      clearInterval(timerInterval);
+    }
+  }
+
+  const timerInterval = setInterval(updateStatus, 1000);
+  updateStatus();
+</script>
+</body>
+</html>
