@@ -67,11 +67,12 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
 .chap .yr{font-weight:800;font-size:clamp(2.6rem,12vw,4.4rem);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(110,231,160,.55);letter-spacing:-.03em}
 .chap h3{font-family:var(--serif);font-weight:500;font-size:1.5rem;margin:.3rem 0 1rem}
 .ph{position:relative;margin:0 0 1.4rem}
-.ph img{display:block;width:100%;height:auto;max-height:85vh;object-fit:contain;border-radius:4px;border:1px solid var(--line);background:var(--panel)}
+.ph img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:50% 30%;border-radius:6px;border:1px solid var(--line);background:var(--panel)}
 .ph.missing{border:1px dashed var(--red);border-radius:4px;padding:2rem 1rem;text-align:center;color:var(--red);font-size:.75rem}
 .ph.missing img{display:none}
-.ph.missing figcaption{position:static;background:none;color:var(--red);padding:0}
-.ph figcaption{position:absolute;left:.6rem;bottom:.6rem;font-size:.65rem;color:var(--phos);background:rgba(7,9,12,.75);padding:.2rem .5rem;border-radius:3px}
+.ph.missing figcaption{color:var(--red)}
+.ph figcaption{display:none}
+.ph.missing figcaption{display:block}
 .letter p{font-family:var(--serif);font-size:1.1rem;line-height:1.8;color:#d9d4c7;margin-bottom:1.1rem;max-width:62ch}
 .pd{color:var(--phos)}
 
@@ -139,7 +140,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
       <article class="chap">
         <div class="yr">Bilbao</div>
         <h3>Cómo empezó todo</h3>
-        <figure class="ph"><img src="origen.JPG" alt="Cómo empezó todo" loading="lazy"><figcaption>origen.JPG</figcaption></figure>
+        <figure class="ph"><img src="origen.JPG" alt="Cómo empezó todo" loading="lazy"><figcaption></figcaption></figure>
         <div class="player">
           <p>🎵 Banda sonora: cómo empezó nuestra historia</p>
           <audio controls preload="metadata"><source src="cancion.mp3" type="audio/mpeg">Tu navegador no soporta el reproductor de audio.</audio>
@@ -156,7 +157,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
       <article class="chap">
         <div class="yr">2021</div>
         <h3>Primer año</h3>
-        <figure class="ph"><img src="ano1.jpeg" alt="Año 1" loading="lazy"><figcaption>ano1.jpeg</figcaption></figure>
+        <figure class="ph"><img src="ano1.jpeg" alt="Año 1" loading="lazy"><figcaption></figcaption></figure>
         <div class="letter">
           <p>El primer año fue intenso; intensísimo a nivel de sentimientos por mi parte.</p>
           <p>Te metiste en mi cabeza, en mi corazón y en todo mi ser. No sabía cómo gestionar todo lo que estaba sintiendo... en realidad, no sabía gestionar absolutamente nada. Venía de otras relaciones donde había sufrido mucho y donde había normalizado cosas que tú me enseñaste (y me sigues enseñando a día de hoy) que no lo eran.</p>
@@ -169,7 +170,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
       <article class="chap">
         <div class="yr">2022</div>
         <h3>Segundo año</h3>
-        <figure class="ph"><img src="ano2.jpeg" alt="Año 2" loading="lazy"><figcaption>ano2.jpeg</figcaption></figure>
+        <figure class="ph"><img src="ano2.jpeg" alt="Año 2" loading="lazy"><figcaption></figcaption></figure>
         <div class="letter">
           <p>Y llegó el segundo año. Un año de cambios, de poner nombres a las cosas y formalizar lo nuestro, pero también podría decir que, para mí, el año más duro de todos los que llevamos.</p>
           <p>Un año en el que a los dos nos tocó tragar mucho. Un año en el que mis inseguridades pudieron más que cualquier otra cosa, pero también el año en el que no dejé de confirmar que te quería para siempre en mi vida: que cuando estaba contigo, el resto del mundo desaparecía. Solo quería que me mirases a mí, que pensases en mí y que sintieses que no querías estar en ningún otro lugar del planeta que no fuese ahí conmigo.</p>
@@ -181,7 +182,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
       <article class="chap">
         <div class="yr">2023</div>
         <h3>Tercer año</h3>
-        <figure class="ph"><img src="ano3.jpeg" alt="Año 3" loading="lazy"><figcaption>ano3.jpeg</figcaption></figure>
+        <figure class="ph"><img src="ano3.jpeg" alt="Año 3" loading="lazy"><figcaption></figcaption></figure>
         <div class="letter">
           <p>Y llegó el tercer año. Un Erasmus de por medio y ese miedo frío recorriéndome el cuerpo de si seríamos capaces de superarlo... Pero lo fuimos, y con creces.</p>
           <p>Demostramos ser dos personas maduras, que se quieren de verdad, que saben comunicarse y que tienen clarísimo que son el uno para el otro; que nadie puede interponerse en medio porque, sencillamente, no existe nadie más.</p>
@@ -192,7 +193,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
       <article class="chap">
         <div class="yr">2024</div>
         <h3>Cuarto año</h3>
-        <figure class="ph"><img src="ano4.jpeg" alt="Año 4" loading="lazy"><figcaption>ano4.jpeg</figcaption></figure>
+        <figure class="ph"><img src="ano4.jpeg" alt="Año 4" loading="lazy"><figcaption></figcaption></figure>
         <div class="letter">
           <p>Y ya vamos por el cuarto año, cuando nadie daba un duro por nosotros. Un año en el que pasé una gran parte viviendo en nuestra ciudad... y digo nuestra porque Donosti ya es un poquito mía también.</p>
           <p>Me has hecho sentir siempre en casa; me has hecho parte de tus amigos, de tu familia... Y es que no puedo tener más suerte de sentirme tan querida allá donde me lleves. Gracias por quererme, por apoyarme, por levantarme cada vez que me caigo y, sobre todo, por poner tu pechito todas las noches al ir a dormir, porque fue un año duro de pechito, eh jajajaja.</p>
@@ -203,7 +204,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
       <article class="chap">
         <div class="yr">2025</div>
         <h3>Quinto año</h3>
-        <figure class="ph"><img src="ano5.jpeg" alt="Año 5" loading="lazy"><figcaption>ano5.jpeg</figcaption></figure>
+        <figure class="ph"><img src="ano5.jpeg" alt="Año 5" loading="lazy"><figcaption></figcaption></figure>
         <div class="letter">
           <p>Empezamos viviendo en Bilbao, venías muchísimo a verme, a pasar tiempo conmigo, a hacerme la cena y a cuidar de mí con esa infinidad de detalles que tienes siempre. Es que lo mío contigo es pura suerte.</p>
           <p>Pero luego llegó el momento de decidir echar a la Global Training. Y aunque siempre te he apoyado y siempre lo haré, no te voy a negar que una parte de mí deseaba que no te fueses: no sabía si podía permitirme tenerte tan lejos, sentirte a tantos kilómetros cuando lo único que quería era tenerte pegado a mí. Pero habría sido muy egoísta por mi parte retenerte; siempre voy a querer lo mejor para ti. Sabía que esto solo sería una etapa, una temporada que nos haría aún más fuertes como pareja y en la que tú crecerías como persona, como profesional y en todo. Siempre pensé, y sigo pensando, que Nueva York tiene muchísima suerte de tenerte.</p>
@@ -216,7 +217,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
       <article class="chap">
         <div class="yr">Familia</div>
         <h3>Parte de la familia</h3>
-        <figure class="ph"><img src="perritos.jpeg" alt="Nuestros perritos" loading="lazy"><figcaption>perritos.jpeg</figcaption></figure>
+        <figure class="ph"><img src="perritos.jpeg" alt="Nuestros perritos" loading="lazy"><figcaption></figcaption></figure>
         <div class="letter">
           <p>Por último, quería poner esta foto porque para mí tiene muchísima importancia.</p>
           <p>Que quieras a mis perritos tanto como yo y que tengas tan claro que son uno más de mi familia, y que los quieras y los cuides como tal, es algo que para mí significa muchísimo. Puede parecer una tontería, pero para mí dice muchísimo de ti como persona. Porque quererme a mí también es querer las cosas y las personas que forman parte de mi vida, y tú lo haces de una manera tan natural que no puedo estar más agradecida.</p>
