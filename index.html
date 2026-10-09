@@ -1,1135 +1,1319 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RIDGWOOD-NYC // PROTOCOL-26</title>
+  <title>INTERNAL PROTOCOL // BDAY-2026</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-* {
-    box-sizing: border-box;
-}
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --card-bg: #12161f;
+      --border: #232a3b;
+      --accent: #22c55e;
+      --accent-dim: rgba(34, 197, 94, 0.12);
+      --danger: #ef4444;
+      --danger-dim: rgba(239, 68, 68, 0.12);
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
 
-body {
-    margin: 0;
-    background: #050505;
-    color: #e7e7e7;
-    font-family: 'JetBrains Mono', monospace;
-    line-height: 1.7;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.container {
-    width: min(1100px, 92%);
-    margin: auto;
-}
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 3rem 1rem;
 
-header {
-    border-bottom: 1px solid #333;
-    padding: 22px 0;
-    position: sticky;
-    top: 0;
-    background: rgba(5,5,5,.96);
-    z-index: 10;
-}
+      background-image:
+        radial-gradient(
+          ellipse at 50% 0%,
+          rgba(34, 197, 94, 0.08) 0%,
+          transparent 60%
+        ),
+        linear-gradient(
+          rgba(18, 22, 31, 0.2) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(18, 22, 31, 0.2) 1px,
+          transparent 1px
+        );
 
-.header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
+      background-size:
+        100% 100%,
+        24px 24px,
+        24px 24px;
+    }
 
-.session {
-    font-size: 13px;
-    color: #aaa;
-}
+    .container {
+      width: 100%;
+      max-width: 720px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
 
-.status {
-    border: 1px solid #777;
-    padding: 5px 12px;
-    font-size: 12px;
-}
+    .header-box {
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
 
-.status.locked {
-    color: #ff6b6b;
-    border-color: #ff6b6b;
-}
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-.status.unlocked {
-    color: #7cff9b;
-    border-color: #7cff9b;
-}
+      font-size: 0.8rem;
+    }
 
-.hero {
-    padding: 70px 0 45px;
-    border-bottom: 1px solid #222;
-}
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
 
-.hero h1 {
-    font-size: clamp(32px, 7vw, 72px);
-    margin: 0;
-    letter-spacing: -3px;
-}
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
 
-.hero p {
-    color: #888;
-    margin-top: 15px;
-}
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
 
-.metrics {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: #333;
-    margin-top: 45px;
-}
+    .status-locked {
+      background: var(--danger-dim);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
 
-.metric {
-    background: #080808;
-    padding: 25px;
-}
+    .status-unlocked {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
 
-.metric-number {
-    font-size: 28px;
-    font-weight: 700;
-}
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
 
-.metric-label {
-    color: #777;
-    font-size: 11px;
-    text-transform: uppercase;
-}
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+    }
 
-.lock-screen {
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
 
-.lock-box {
-    border: 1px solid #333;
-    padding: 50px 30px;
-    max-width: 700px;
-    width: 100%;
-}
+      padding: 1rem 0.8rem;
+      text-align: center;
+    }
 
-.lock-icon {
-    font-size: 42px;
-    margin-bottom: 20px;
-}
+    .metric-val {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
 
-.lock-box h2 {
-    font-size: 24px;
-    margin: 10px 0;
-}
+    .metric-label {
+      font-size: 0.68rem;
+      color: var(--text-muted);
 
-.countdown {
-    font-size: clamp(32px, 8vw, 64px);
-    font-weight: 700;
-    margin: 30px 0;
-    letter-spacing: 2px;
-}
+      margin-top: 0.2rem;
+      letter-spacing: 0.05em;
+    }
 
-.small {
-    font-size: 12px;
-    color: #666;
-}
+    .countdown-card {
+      border: 1px dashed var(--danger);
+      background: var(--card-bg);
+      border-radius: 8px;
 
-.protocol {
-    display: none;
-}
+      padding: 2.5rem 1.5rem;
 
-.section {
-    padding: 65px 0;
-    border-bottom: 1px solid #222;
-}
+      text-align: center;
 
-.section-header {
-    margin-bottom: 45px;
-}
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
 
-.section-number {
-    color: #666;
-    font-size: 12px;
-}
+    .countdown-timer {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--danger);
+    }
 
-.section-title {
-    font-size: 28px;
-    margin: 8px 0;
-}
+    .unlocked-content {
+      display: none;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
 
-.message {
-    max-width: 850px;
-    margin: 0 auto 55px;
-    font-size: 16px;
-}
+    .module-banner {
+      border-bottom: 2px solid var(--accent);
 
-.message p {
-    margin-bottom: 22px;
-}
+      padding-bottom: 0.4rem;
+      margin-top: 1rem;
 
-.birthday {
-    border: 1px solid #444;
-    padding: 35px;
-    margin-bottom: 70px;
-    background: #090909;
-}
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
 
-.birthday .label {
-    color: #777;
-    font-size: 11px;
-    margin-bottom: 15px;
-}
+    .module-banner h2 {
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
 
-.birthday h2 {
-    font-size: clamp(25px, 5vw, 42px);
-    margin: 0 0 25px;
-}
+    .module-tag {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
 
-.card {
-    margin: 50px 0;
-}
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
 
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    align-items: center;
-    border-bottom: 1px solid #333;
-    padding-bottom: 12px;
-    margin-bottom: 25px;
-}
+      padding: 1.4rem;
 
-.card-header h3 {
-    margin: 0;
-    font-size: 19px;
-}
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
-.card-year {
-    color: #666;
-    font-size: 12px;
-}
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-.card p {
-    color: #d0d0d0;
-}
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.6rem;
+    }
 
-.image-frame {
-    margin: 30px 0;
-    border: 1px solid #333;
-    background: #0b0b0b;
-    padding: 8px;
-}
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
 
-.image-frame img {
-    display: block;
-    width: 100%;
-    max-height: 700px;
-    object-fit: contain;
-}
+    .card-img {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid var(--border);
 
-.caption {
-    color: #666;
-    font-size: 11px;
-    padding: 10px 5px 2px;
-}
+      display: block;
+      margin-top: 0.4rem;
+    }
 
-.audio-player-box {
-    border: 1px solid #333;
-    padding: 22px;
-    margin: 30px 0;
-    background: #090909;
-}
+    .card-text {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #c9d1d9;
+    }
 
-.audio-title {
-    margin-bottom: 15px;
-    color: #ccc;
-    font-size: 13px;
-}
+    .audio-player-box {
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: 6px;
 
-.audio-title span {
-    margin-right: 8px;
-}
+      padding: 0.8rem;
 
-audio {
-    width: 100%;
-    display: block;
-}
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
 
-.video-box {
-    border: 1px solid #333;
-    padding: 10px;
-    background: #080808;
-    margin-top: 30px;
-}
+    .audio-title {
+      font-size: 0.78rem;
+      color: var(--text-muted);
 
-video {
-    width: 100%;
-    display: block;
-}
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
 
-.terminal {
-    background: #030303;
-    border: 1px solid #333;
-    padding: 25px;
-    margin-top: 30px;
-    overflow-x: auto;
-}
+    audio {
+      width: 100%;
+      height: 36px;
+      filter: invert(0.9) hue-rotate(180deg);
+    }
 
-.terminal-line {
-    color: #8cff9c;
-    white-space: nowrap;
-}
+    .video-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-.terminal-comment {
-    color: #666;
-}
+    .video-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
 
-.final-message {
-    text-align: center;
-    padding: 80px 20px;
-}
+    .video-player {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #000;
+    }
 
-.final-message h2 {
-    font-size: clamp(30px, 7vw, 60px);
-    margin-bottom: 30px;
-}
+    .terminal-box {
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
 
-.final-message p {
-    color: #aaa;
-}
+      border-radius: 6px;
 
-.footer {
-    padding: 35px 0;
-    color: #555;
-    font-size: 11px;
-    text-align: center;
-}
+      padding: 1rem 1.2rem;
 
-@media (max-width: 700px) {
-    .metrics {
+      font-size: 0.82rem;
+      line-height: 1.7;
+    }
+
+    .cmd-line {
+      color: var(--accent);
+      user-select: all;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 600px) {
+      .metrics-grid {
         grid-template-columns: 1fr;
-    }
+      }
 
-    .hero {
-        padding-top: 45px;
-    }
+      .countdown-timer {
+        font-size: 1.6rem;
+      }
 
-    .birthday {
-        padding: 25px;
-    }
-
-    .section {
-        padding: 45px 0;
-    }
-
-    .card-header {
-        align-items: flex-start;
+      .header-box {
         flex-direction: column;
-        gap: 5px;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
     }
-}
-</style>
+  </style>
 </head>
 
 <body>
 
-<header>
-    <div class="container header-inner">
-        <div class="session">
-            SESSION: RIDGWOOD-NYC // PROTOCOL-26
-        </div>
+  <div class="container">
 
-        <div id="status" class="status locked">
-            LOCKED
-        </div>
+    <!-- ========================================== -->
+    <!-- BARRA DE ESTADO                            -->
+    <!-- ========================================== -->
+
+    <div class="header-box">
+
+      <div>
+        <strong>SESSION:</strong>
+        RIDGWOOD-NYC // PROTOCOL-26
+      </div>
+
+      <div id="statusTag" class="status-badge status-locked">
+        <span class="pulse"></span>
+        <span id="statusText">LOCKED</span>
+      </div>
+
     </div>
-</header>
 
 
-<main>
+    <!-- ========================================== -->
+    <!-- MÉTRICAS                                   -->
+    <!-- ========================================== -->
 
-<section class="hero">
-    <div class="container">
+    <div class="metrics-grid">
 
-        <h1>BIRTHDAY<br>PROTOCOL_26</h1>
+      <div class="metric-card">
+        <div class="metric-val">5</div>
+        <div class="metric-label">AÑOS JUNTOS</div>
+      </div>
 
-        <p>
-            ARCHIVO PRIVADO // ACCESO RESTRINGIDO
+      <div class="metric-card">
+        <div class="metric-val">15 SEP</div>
+        <div class="metric-label">ÚLTIMO REENCUENTRO</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-val">23 DIC</div>
+        <div class="metric-label">PRÓXIMA PARADA</div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- PANTALLA DE BLOQUEO                        -->
+    <!-- ========================================== -->
+
+    <div id="lockScreen" class="countdown-card">
+
+      <div
+        style="
+          font-size: 0.85rem;
+          color: var(--danger);
+          font-weight: 600;
+          letter-spacing: 0.08em;
+        "
+      >
+        [!] PROTOCOLO BLOQUEADO HASTA CUMPLEAÑOS (EST)
+      </div>
+
+      <div id="countdown" class="countdown-timer">
+        00d : 00h : 00m : 00s
+      </div>
+
+      <div
+        style="
+          font-size: 0.75rem;
+          color: var(--text-muted);
+          max-width: 420px;
+          line-height: 1.5;
+        "
+      >
+        Acceso restringido. Desbloqueo programado para el
+        6 de noviembre a las 00:00:00 (Ridgewood, NY).
+      </div>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- CONTENIDO DESBLOQUEADO                     -->
+    <!-- ========================================== -->
+
+    <div id="unlockedScreen" class="unlocked-content">
+
+
+      <!-- ========================================== -->
+      <!-- MENSAJE INICIAL                            -->
+      <!-- ========================================== -->
+
+      <div
+        class="section-card"
+        style="
+          border-color: rgba(34, 197, 94, 0.4);
+          text-align: center;
+        "
+      >
+
+        <div class="section-header">
+
+          <span class="section-title">
+            00_INIT // MENSAJE PERSONAL
+          </span>
+
+          <span
+            style="
+              font-size: 0.72rem;
+              color: var(--accent);
+            "
+          >
+            AUTHORIZED
+          </span>
+
+        </div>
+
+        <p class="card-text">
+          Antes de seguir, quería parar un segundo para decirte algo muy sencillo:
         </p>
 
-        <div class="metrics">
+        <p
+          class="card-text"
+          style="
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 700;
+            text-align: center;
+          "
+        >
+          FELIZ CUMPLEAÑOS, MARIO.
+        </p>
 
-            <div class="metric">
-                <div class="metric-number">5</div>
-                <div class="metric-label">AÑOS JUNTOS</div>
-            </div>
+        <p class="card-text">
+          Felices 24 a la persona con la que quiero seguir compartiendo
+          todos los años que nos queden por delante.
+        </p>
 
-            <div class="metric">
-                <div class="metric-number">15 SEP</div>
-                <div class="metric-label">ÚLTIMO REENCUENTRO</div>
-            </div>
+        <p class="card-text">
+          Ahora sí. Vamos a echar la vista atrás y recordar un poquito
+          todo lo que hemos vivido para llegar hasta aquí.
+        </p>
 
-            <div class="metric">
-                <div class="metric-number">23 DIC</div>
-                <div class="metric-label">PRÓXIMA PARADA</div>
-            </div>
-
-        </div>
-
-    </div>
-</section>
+      </div>
 
 
-<!-- ================= LOCK SCREEN ================= -->
+      <!-- ========================================== -->
+      <!-- BLOQUE I: NUESTRA HISTORIA                 -->
+      <!-- ========================================== -->
 
-<section id="lockScreen" class="lock-screen">
+      <div>
 
-    <div class="container">
+        <div class="module-banner">
 
-        <div class="lock-box">
+          <h2>
+            [BLOQUE I] // NUESTRA HISTORIA
+          </h2>
 
-            <div class="lock-icon">🔒</div>
-
-            <div class="small">
-                SYSTEM STATUS
-            </div>
-
-            <h2>
-                PROTOCOLO BLOQUEADO
-            </h2>
-
-            <p>
-                Acceso restringido.
-            </p>
-
-            <p>
-                Desbloqueo programado para el
-                <strong>6 de noviembre a las 00:00:00</strong>
-                (Ridgewood, NY).
-            </p>
-
-            <div id="countdown" class="countdown">
-                --:--:--:--
-            </div>
-
-            <div class="small">
-                DAYS : HOURS : MINUTES : SECONDS
-            </div>
+          <span class="module-tag">
+            5 YEARS ARCHIVE
+          </span>
 
         </div>
 
-    </div>
-
-</section>
+      </div>
 
 
-<!-- ================= UNLOCKED PROTOCOL ================= -->
+      <!-- ========================================== -->
+      <!-- PRÓLOGO                                    -->
+      <!-- ========================================== -->
 
-<div id="protocol" class="protocol">
-
-
-<!-- ================= INTRO ================= -->
-
-<section class="section">
-
-    <div class="container">
-
-        <div class="birthday">
-
-            <div class="label">
-                [ MENSAJE PRIORITARIO ]
-            </div>
-
-            <h2>
-                FELIZ CUMPLEAÑOS, MARIO.
-            </h2>
-
-            <div class="message">
-
-                <p>
-                    Antes de seguir, quería parar un segundo para decirte algo muy sencillo:
-                </p>
-
-                <p>
-                    <strong>FELIZ CUMPLEAÑOS, MARIO.</strong>
-                </p>
-
-                <p>
-                    Felices 24 a la persona con la que quiero seguir compartiendo todos los años que nos queden por delante.
-                </p>
-
-                <p>
-                    Ahora sí. Vamos a echar la vista atrás y recordar un poquito todo lo que hemos vivido para llegar hasta aquí.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= BLOQUE I ================= -->
-
-<section class="section">
-
-    <div class="container">
+      <div
+        class="section-card"
+        style="border-color: rgba(34, 197, 94, 0.4);"
+      >
 
         <div class="section-header">
 
-            <div class="section-number">
-                [BLOQUE I]
-            </div>
+          <span class="section-title">
+            01_PROLOGUE // CÓMO EMPEZÓ TODO
+          </span>
 
-            <h2 class="section-title">
-                NUESTRA HISTORIA
-            </h2>
-
-        </div>
-
-
-        <!-- ORIGEN -->
-
-        <div class="card">
-
-            <div class="card-header">
-
-                <h3>
-                    CÓMO EMPEZÓ TODO
-                </h3>
-
-                <div class="card-year">
-                    PROLOGUE
-                </div>
-
-            </div>
-
-            <p>
-                Aquí empieza todo.
-            </p>
-
-            <p>
-                Una historia que empezó casi sin darnos cuenta y que, cinco años después, se ha convertido en una de las partes más importantes de mi vida.
-            </p>
-
-            <div class="image-frame">
-
-                <img src="origen.JPG" alt="Cómo empezó nuestra historia">
-
-                <div class="caption">
-                    FILE: origen.JPG
-                </div>
-
-            </div>
-
-
-            <!-- AUDIO CORREGIDO -->
-
-            <div class="audio-player-box">
-
-                <div class="audio-title">
-                    <span>🎵</span>
-                    <strong>BANDA SONORA:</strong>
-                    Cómo empezó nuestra historia
-                </div>
-
-                <audio controls preload="metadata">
-                    <source src="./cancion.mp3" type="audio/mpeg">
-                    Tu navegador no puede reproducir este archivo de audio.
-                </audio>
-
-            </div>
+          <span
+            style="
+              font-size: 0.72rem;
+              color: var(--accent);
+            "
+          >
+            BILBAO
+          </span>
 
         </div>
 
+        <img
+          src="origen.JPG"
+          alt="Cómo empezó todo"
+          class="card-img"
+        >
 
-        <!-- AÑO 1 -->
+        <div class="audio-player-box">
 
-        <div class="card">
+          <div class="audio-title">
+            <span>🎵</span>
 
-            <div class="card-header">
+            <strong>
+              BANDA SONORA:
+            </strong>
 
-                <h3>
-                    AÑO 1
-                </h3>
+            Cómo empezó nuestra historia
+          </div>
 
-                <div class="card-year">
-                    2021
-                </div>
+          <audio controls>
 
-            </div>
+            <source
+              src="cancion.mp3"
+              type="audio/mpeg"
+            >
 
-            <p>
-                Nuestro primer año.
-            </p>
+            Tu navegador no soporta el reproductor de audio.
 
-            <p>
-                El año en el que todo empezó a convertirse en algo mucho más grande de lo que probablemente imaginábamos al principio.
-            </p>
-
-            <div class="image-frame">
-
-                <img src="ano1.JPG" alt="Año 1">
-
-                <div class="caption">
-                    FILE: ano1.JPG
-                </div>
-
-            </div>
+          </audio>
 
         </div>
 
+        <p class="card-text">
 
-        <!-- AÑO 2 -->
+          Todo empezó en Bilbao. Quién nos diría cuando nos conocimos
+          que hoy estaríamos aquí...
 
-        <div class="card">
+          Aunque en realidad no empezó el día que nos vimos por primera vez.
+          Éramos amigos y, aunque tú pensases que me caías mal, la verdad
+          es que simplemente te veía como un chico muy serio. Pero me lo
+          pasaba increíble de fiesta contigo y siempre pensé que tienes la
+          sonrisa más bonita del mundo; esa misma sonrisa que a día de hoy
+          quiero a mi lado todos los días de mi vida.
 
-            <div class="card-header">
+          Pasamos de amigos a algo más en una sola noche. En un baile...
+          bueno, en unos cuantos bailes. Y si me preguntas, fueron las
+          mejores noches de mi vida. Me encantaba buscar el momento exacto
+          para quedarnos solos, poner música, sentirte cerca y pensar que
+          no existía nada más en el mundo que importara más que ese instante.
 
-                <h3>
-                    AÑO 2
-                </h3>
+          Doy gracias a dios cada día por haber salido justo esa noche,
+          en ese momento. Y te lo repetiré siempre que lo necesites:
+          ese primer polvo y esa primera ducha fueron mi "sí, quiero estar
+          con este chico". Sé que para ti en ese momento fue algo normal,
+          pero para mí fue el principio de todo.
 
-                <div class="card-year">
-                    2022
-                </div>
+          Y después de esto... toca recorrer un poco nuestros años juntos.
 
-            </div>
+        </p>
 
-            <p>
-                Segundo año.
-            </p>
+      </div>
 
-            <p>
-                Más recuerdos, más viajes, más momentos juntos y muchas más razones para seguir eligiéndonos.
-            </p>
 
-            <div class="image-frame">
+      <!-- ========================================== -->
+      <!-- AÑO 1                                      -->
+      <!-- ========================================== -->
 
-                <img src="ano2.JPG" alt="Año 2">
-
-                <div class="caption">
-                    FILE: ano2.JPG
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- AÑO 3 -->
-
-        <div class="card">
-
-            <div class="card-header">
-
-                <h3>
-                    AÑO 3
-                </h3>
-
-                <div class="card-year">
-                    2023
-                </div>
-
-            </div>
-
-            <p>
-                Tercer año.
-            </p>
-
-            <p>
-                Un año lleno de cambios, experiencias y recuerdos que hoy forman parte de nuestra historia.
-            </p>
-
-            <div class="image-frame">
-
-                <img src="ano3.JPG" alt="Año 3">
-
-                <div class="caption">
-                    FILE: ano3.JPG
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- AÑO 4 -->
-
-        <div class="card">
-
-            <div class="card-header">
-
-                <h3>
-                    AÑO 4
-                </h3>
-
-                <div class="card-year">
-                    2024
-                </div>
-
-            </div>
-
-            <p>
-                Cuarto año.
-            </p>
-
-            <p>
-                Seguimos creciendo, aprendiendo y construyendo una vida que cada vez siento más nuestra.
-            </p>
-
-            <div class="image-frame">
-
-                <img src="ano4.JPG" alt="Año 4">
-
-                <div class="caption">
-                    FILE: ano4.JPG
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- AÑO 5 -->
-
-        <div class="card">
-
-            <div class="card-header">
-
-                <h3>
-                    AÑO 5
-                </h3>
-
-                <div class="card-year">
-                    2025 — 2026
-                </div>
-
-            </div>
-
-            <p>
-                Y llegamos al quinto año.
-            </p>
-
-            <p>
-                Cinco años juntos. Cinco años de recuerdos, viajes, casas, cenas, discusiones, risas y de seguir escogiendo estar el uno al lado del otro.
-            </p>
-
-            <div class="image-frame">
-
-                <img src="ano5.JPG" alt="Año 5">
-
-                <div class="caption">
-                    FILE: ano5.JPG
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- PERRITOS -->
-
-        <div class="card">
-
-            <div class="card-header">
-
-                <h3>
-                    ARCHIVO ESPECIAL
-                </h3>
-
-                <div class="card-year">
-                    06 // FAMILY
-                </div>
-
-            </div>
-
-            <p>
-                Por último, quería poner esta foto porque para mí tiene muchísima importancia.
-            </p>
-
-            <p>
-                Que quieras a mis perritos tanto como yo y que tengas tan claro que son uno más de mi familia, y que los quieras y los cuides como tal, es algo que para mí significa muchísimo. Puede parecer una tontería, pero para mí dice muchísimo de ti como persona. Porque quererme a mí también es querer las cosas y las personas que forman parte de mi vida, y tú lo haces de una manera tan natural que no puedo estar más agradecida.
-            </p>
-
-            <p>
-                Y es que, por décima vez en este viaje, no puedo hacer otra cosa que decirte lo maravilloso que eres, Mario. No solo eres el amor de mi vida, eres también una persona que se ha convertido en parte de mi familia y que, por supuesto, lo será siempre.
-            </p>
-
-            <p>
-                Así que felices 24 a una de las personas más importantes de mi vida. Ojalá podamos seguir sumando años, recuerdos, viajes, casas, cenas, discusiones, risas y, por supuesto, muchos perritos más juntos.
-            </p>
-
-            <p>
-                <strong>
-                    PD: Rocky te quiere más que a nada en el mundo. Y eso, viniendo de Rocky, es siempre una señal bastante buena. 🐶❤️
-                </strong>
-            </p>
-
-            <div class="image-frame">
-
-                <img src="perritos.JPG" alt="Nuestros perritos">
-
-                <div class="caption">
-                    FILE: perritos.JPG
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= BLOQUE II ================= -->
-
-<section class="section">
-
-    <div class="container">
+      <div class="section-card">
 
         <div class="section-header">
 
-            <div class="section-number">
-                [BLOQUE II]
-            </div>
+          <span class="section-title">
+            Primer año
+          </span>
 
-            <h2 class="section-title">
-                MENSAJES DE TU FAMILIA
-            </h2>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-header">
-
-                <h3>
-                    FAMILY TRANSMISSION
-                </h3>
-
-                <div class="card-year">
-                    VIDEO
-                </div>
-
-            </div>
-
-            <p>
-                Porque una parte fundamental de tu vida también es toda la gente que te quiere y que ha querido formar parte de este pequeño protocolo.
-            </p>
-
-            <div class="video-box">
-
-                <video controls preload="metadata">
-
-                    <source src="./familia1.mp4" type="video/mp4">
-
-                    Tu navegador no puede reproducir este vídeo.
-
-                </video>
-
-            </div>
+          <span
+            style="
+              font-size: 0.72rem;
+              color: var(--text-muted);
+            "
+          >
+            AÑO 1
+          </span>
 
         </div>
 
-    </div>
+        <img
+          src="ano1.JPG"
+          alt="Año 1"
+          class="card-img"
+        >
 
-</section>
+        <p class="card-text">
+
+          El primer año fue intenso; intensísimo a nivel de sentimientos
+          por mi parte.
+
+          Te metiste en mi cabeza, en mi corazón y en todo mi ser.
+          No sabía cómo gestionar todo lo que estaba sintiendo...
+          en realidad, no sabía gestionar absolutamente nada. Venía de
+          otras relaciones donde había sufrido mucho y donde había
+          normalizado cosas que tú me enseñaste (y me sigues enseñando
+          a día de hoy) que no lo eran.
+
+          Gracias a nuestra paciencia, a nuestras discusiones, a las
+          tardes eternas hablando, a nuestras cenas, a nuestros polvos,
+          a nuestras risas y, al fin y al cabo, a toda esa intensidad,
+          hoy estamos donde estamos. Por eso no cambiaría nada: ni una
+          sola discusión, ni un solo tropiezo.
+
+          Todo el mundo dice que los primeros años son los más fáciles
+          y bonitos, pero en nuestro caso no sé si estoy muy de acuerdo:
+          fue precioso, pero también muy duro y triste por momentos.
+          Aun así, cada vez que estaba contigo tenía algo clarísimo:
+          una vez metida en este jaleo ya no había marcha atrás.
+          No había forma humana de sacarte de mi vida.
+
+          Y gracias por las cartas que me escribiste. El confinamiento
+          fue tan impactante y único para ti como para mí; no nos hacía
+          falta nada más que tú y yo. Encerrados en apenas diez metros
+          cuadrados éramos completamente felices: no existían
+          discusiones, no existía el mundo exterior, no existía nada más.
+
+        </p>
+
+      </div>
 
 
-<!-- ================= BLOQUE III ================= -->
+      <!-- ========================================== -->
+      <!-- AÑO 2                                      -->
+      <!-- ========================================== -->
 
-<section class="section">
-
-    <div class="container">
+      <div class="section-card">
 
         <div class="section-header">
 
-            <div class="section-number">
-                [BLOQUE III]
-            </div>
+          <span class="section-title">
+            Segundo año
+          </span>
 
-            <h2 class="section-title">
-                MENSAJES DE TUS AMIGOS
-            </h2>
-
-        </div>
-
-
-        <!-- CUADRILLA -->
-
-        <div class="card">
-
-            <div class="card-header">
-
-                <h3>
-                    CUADRILLA
-                </h3>
-
-                <div class="card-year">
-                    AUDIO
-                </div>
-
-            </div>
-
-            <p>
-                Mensajes de algunas de las personas que han compartido contigo una parte de estos años.
-            </p>
-
-            <div class="audio-player-box">
-
-                <div class="audio-title">
-                    <span>🎙️</span>
-                    <strong>MENSAJES:</strong>
-                    Tu cuadrilla
-                </div>
-
-                <audio controls preload="metadata">
-
-                    <source src="./audios_cuadrilla.mp3" type="audio/mpeg">
-
-                    Tu navegador no puede reproducir este archivo de audio.
-
-                </audio>
-
-            </div>
+          <span
+            style="
+              font-size: 0.72rem;
+              color: var(--text-muted);
+            "
+          >
+            AÑO 2
+          </span>
 
         </div>
 
+        <img
+          src="ano2.JPG"
+          alt="Año 2"
+          class="card-img"
+        >
 
-        <!-- ERASMUS -->
+        <p class="card-text">
 
-        <div class="card">
+          Y llegó el segundo año. Un año de cambios, de poner nombres
+          a las cosas y formalizar lo nuestro, pero también podría decir
+          que, para mí, el año más duro de todos los que llevamos.
 
-            <div class="card-header">
+          Un año en el que a los dos nos tocó tragar mucho. Un año en
+          el que mis inseguridades pudieron más que cualquier otra cosa,
+          pero también el año en el que no dejé de confirmar que te quería
+          para siempre en mi vida: que cuando estaba contigo, el resto
+          del mundo desaparecía. Solo quería que me mirases a mí, que
+          pensases en mí y que sintieses que no querías estar en ningún
+          otro lugar del planeta que no fuese ahí conmigo.
 
-                <h3>
-                    ERASMUS
-                </h3>
+          Fue difícil, pero nos sirvió para luchar y seguir adelante
+          juntos, para aprender y para querernos cada día un poco más
+          y mejor.
 
-                <div class="card-year">
-                    AUDIO
-                </div>
+          Sé que quizás no sea la mejor foto, pero cada una de las imágenes
+          que he elegido para este viaje es tan puramente nosotros que era
+          imposible poner otra. Gracias, un año más, por demostrarme que
+          no me equivocaba al elegir al amor de mi vida.
 
-            </div>
+        </p>
 
-            <p>
-                Porque algunas personas aparecen en nuestras vidas durante un tiempo concreto y aun así consiguen dejar una huella enorme.
-            </p>
-
-            <div class="audio-player-box">
-
-                <div class="audio-title">
-                    <span>🌍</span>
-                    <strong>MENSAJES:</strong>
-                    Erasmus
-                </div>
-
-                <audio controls preload="metadata">
-
-                    <source src="./audios_erasmus.mp3" type="audio/mpeg">
-
-                    Tu navegador no puede reproducir este archivo de audio.
-
-                </audio>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
+      </div>
 
 
-<!-- ================= FINAL ================= -->
+      <!-- ========================================== -->
+      <!-- AÑO 3                                      -->
+      <!-- ========================================== -->
 
-<section class="section">
-
-    <div class="container">
+      <div class="section-card">
 
         <div class="section-header">
 
-            <div class="section-number">
-                [07_FINAL_PAYLOAD]
-            </div>
+          <span class="section-title">
+            Tercer año
+          </span>
 
-            <h2 class="section-title">
-                THE FINAL MESSAGE
-            </h2>
-
-        </div>
-
-
-        <div class="message">
-
-            <p>
-                Y después de todo este viaje, solo me queda decirte una cosa.
-            </p>
-
-            <p>
-                Gracias.
-            </p>
-
-            <p>
-                Gracias por estos cinco años. Por todo lo que hemos vivido y por todo lo que todavía nos queda por vivir.
-            </p>
-
-            <p>
-                Gracias por ser mi persona, mi casa, mi compañero de viaje y una de las personas que más quiero en este mundo.
-            </p>
-
-            <p>
-                Espero que este sea solamente uno de los muchos cumpleaños que todavía podamos celebrar juntos.
-            </p>
+          <span
+            style="
+              font-size: 0.72rem;
+              color: var(--text-muted);
+            "
+          >
+            AÑO 3
+          </span>
 
         </div>
 
+        <img
+          src="ano3.JPG"
+          alt="Año 3"
+          class="card-img"
+        >
 
-        <div class="terminal">
+        <p class="card-text">
 
-            <div class="terminal-comment">
-                # FINAL PAYLOAD
-            </div>
+          Y llegó el tercer año. Un Erasmus de por medio y ese miedo
+          frío recorriéndome el cuerpo de si seríamos capaces de superarlo...
+          Pero lo fuimos, y con creces.
 
-            <br>
+          Demostramos ser dos personas maduras, que se quieren de verdad,
+          que saben comunicarse y que tienen clarísimo que son el uno
+          para el otro; que nadie puede interponerse en medio porque,
+          sencillamente, no existe nadie más.
 
-            <div class="terminal-line">
-                $ git clone https://github.com/MariaIbaez/bday-protocol-2026.git
-            </div>
+          Conocer a más gente fuera solo me sirvió para confirmar la
+          suerte inmensa que tengo de tenerte a mi lado. Eres la persona
+          más maravillosa que conozco: bueno, dulce, cariñoso, maduro...
+          Y lo reafirmo cada vez que veo lo muchísimo que te quiere todo
+          el mundo. Ojalá el mundo entero pudiese tener a alguien como tú;
+          yo ya te tengo a ti, y no pienso soltarte.
 
-            <div class="terminal-line">
-                $ cd bday-protocol-2026
-            </div>
+        </p>
 
-            <div class="terminal-line">
-                $ python3 decrypt.py
-            </div>
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- AÑO 4                                      -->
+      <!-- ========================================== -->
+
+      <div class="section-card">
+
+        <div class="section-header">
+
+          <span class="section-title">
+            Cuarto año
+          </span>
+
+          <span
+            style="
+              font-size: 0.72rem;
+              color: var(--text-muted);
+            "
+          >
+            AÑO 4
+          </span>
 
         </div>
 
+        <img
+          src="ano4.JPG"
+          alt="Año 4"
+          class="card-img"
+        >
 
-        <div class="final-message">
+        <p class="card-text">
 
-            <h2>
-                TE QUIERO, MARIO.
-            </h2>
+          Y ya vamos por el cuarto año, cuando nadie daba un duro por
+          nosotros. Un año en el que pasé una gran parte viviendo en
+          nuestra ciudad... y digo nuestra porque Donosti ya es un
+          poquito mía también.
 
-            <p>
-                FIN DEL PROTOCOLO // 2026
-            </p>
+          Me has hecho sentir siempre en casa; me has hecho parte de tus
+          amigos, de tu familia... Y es que no puedo tener más suerte de
+          sentirme tan querida allá donde me lleves. Gracias por quererme,
+          por apoyarme, por levantarme cada vez que me caigo y, sobre todo,
+          por poner tu pechito todas las noches al ir a dormir, porque fue
+          un año duro de pechito, eh jajajaja.
+
+          Estoy deseando que llegue ese día en el que pueda despertarme
+          a tu lado todas las mañanas, ir a trabajar, cenar juntos y dormir
+          en nuestra casita, con nuestros planes. Fui tan feliz esos seis
+          meses en Donosti que tengo clarísimo que podría serlo toda mi
+          vida a tu lado. Tú eres para mí y yo soy para ti.
+
+        </p>
+
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- AÑO 5                                      -->
+      <!-- ========================================== -->
+
+      <div class="section-card">
+
+        <div class="section-header">
+
+          <span class="section-title">
+            Quinto año
+          </span>
+
+          <span
+            style="
+              font-size: 0.72rem;
+              color: var(--text-muted);
+            "
+          >
+            AÑO 5
+          </span>
 
         </div>
+
+        <img
+          src="ano5.JPG"
+          alt="Año 5"
+          class="card-img"
+        >
+
+        <p class="card-text">
+
+          Empezamos viviendo en Bilbao, venías muchísimo a verme, a pasar
+          tiempo conmigo, a hacerme la cena y a cuidar de mí con esa
+          infinidad de detalles que tienes siempre. Es que lo mío contigo
+          es pura suerte.
+
+          Pero luego llegó el momento de decidir echar a la Global Training.
+          Y aunque siempre te he apoyado y siempre lo haré, no te voy a
+          negar que una parte de mí deseaba que no te fueses: no sabía si
+          podía permitirme tenerte tan lejos, sentirte a tantos kilómetros
+          cuando lo único que quería era tenerte pegado a mí. Pero habría
+          sido muy egoísta por mi parte retenerte; siempre voy a querer lo
+          mejor para ti. Sabía que esto solo sería una etapa, una temporada
+          que nos haría aún más fuertes como pareja y en la que tú crecerías
+          como persona, como profesional y en todo. Siempre pensé, y sigo
+          pensando, que Nueva York tiene muchísima suerte de tenerte.
+
+          Estos meses han sido duros y te he echado de menos como a nadie,
+          pero te juro que todo este esfuerzo mereció la pena solo por esos
+          15 días que pasé a tu lado en septiembre. Fueron los mejores quince
+          días de mi vida en mucho tiempo: fui inmensamente feliz, me reí
+          como nunca y me sentí querida como hacía tiempo que no me sentía.
+
+          Merece la pena porque te veo feliz, te veo bien y estoy
+          profundamente orgullosa de la persona en la que te has convertido
+          en estos cinco años. Te he visto crecer y creo que nunca dejaré
+          de asombrarme de lo increíble que eres. Pero es que, además,
+          estoy muy orgullosa de la persona en la que tú me has convertido
+          a mí: soy mejor persona, pero sobre todo mejor novia, y te juro
+          que no puedo más que darte las gracias. Somos una pareja increíble,
+          Mario, y estoy tan orgullosa de dónde hemos llegado... Todo el
+          mundo debería tener una relación como la nuestra; nunca pensé
+          que llegaríamos hasta aquí, pero es que lo que tenemos es
+          absolutamente increíble. Estoy tan orgullosa de ti, te lo juro,
+          Mario.
+
+          Todavía nos queda una temporadita lejos y sé que se hace dura
+          porque la vuelta para mí fue horrible, pero todo sea por una
+          vida entera juntos. Porque quiero que un día les cuentes a
+          nuestros hijos todo lo que viviste e hiciste en Nueva York,
+          para que ellos también sepan que pueden llegar a ser tan
+          increíbles como su papi. Esto solo es el principio de toda
+          una vida junto a ti.
+
+        </p>
+
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- BLOQUE ESPECIAL: LOS PERRITOS             -->
+      <!-- ========================================== -->
+
+      <div
+        class="section-card"
+        style="border-color: rgba(34, 197, 94, 0.4);"
+      >
+
+        <div class="section-header">
+
+          <span class="section-title">
+            06 // PARTE DE LA FAMILIA
+          </span>
+
+          <span
+            style="
+              font-size: 0.72rem;
+              color: var(--accent);
+            "
+          >
+            FAMILY MEMBER
+          </span>
+
+        </div>
+
+        <img
+          src="perritos.JPG"
+          alt="Nuestros perritos"
+          class="card-img"
+        >
+
+        <p class="card-text">
+
+          Por último, quería poner esta foto porque para mí tiene
+          muchísima importancia.
+
+        </p>
+
+        <p class="card-text">
+
+          Que quieras a mis perritos tanto como yo y que tengas tan claro
+          que son uno más de mi familia, y que los quieras y los cuides
+          como tal, es algo que para mí significa muchísimo. Puede parecer
+          una tontería, pero para mí dice muchísimo de ti como persona.
+          Porque quererme a mí también es querer las cosas y las personas
+          que forman parte de mi vida, y tú lo haces de una manera tan
+          natural que no puedo estar más agradecida.
+
+        </p>
+
+        <p class="card-text">
+
+          Y es que, por décima vez en este viaje, no puedo hacer otra cosa
+          que decirte lo maravilloso que eres, Mario. No solo eres el amor
+          de mi vida, eres también una persona que se ha convertido en
+          parte de mi familia y que, por supuesto, lo será siempre.
+
+        </p>
+
+        <p class="card-text">
+
+          Así que felices 24 a una de las personas más importantes de mi
+          vida. Ojalá podamos seguir sumando años, recuerdos, viajes,
+          casas, cenas, discusiones, risas y, por supuesto, muchos
+          perritos más juntos.
+
+        </p>
+
+        <p
+          class="card-text"
+          style="color: var(--accent);"
+        >
+
+          <strong>PD:</strong>
+          Rocky te quiere más que a nada en el mundo.
+          Y eso, viniendo de Rocky, es siempre una señal bastante buena.
+          🐶❤️
+
+        </p>
+
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- BLOQUE II: FAMILIA                         -->
+      <!-- ========================================== -->
+
+      <div>
+
+        <div class="module-banner">
+
+          <h2>
+            [BLOQUE II] // MENSAJES DE TU FAMILIA
+          </h2>
+
+          <span class="module-tag">
+            VIDEO TRANSMISSIONS
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-card">
+
+        <p class="card-text">
+
+          Desde casa nadie quería perderse tu día.
+          Mensajes directos de los tuyos:
+
+        </p>
+
+        <div class="video-grid">
+
+          <div class="video-item">
+
+            <video
+              class="video-player"
+              controls
+              preload="metadata"
+            >
+
+              <source
+                src="familia1.mp4"
+                type="video/mp4"
+              >
+
+              Tu navegador no soporta vídeo.
+
+            </video>
+
+            <div
+              style="
+                font-size: 0.72rem;
+                color: var(--text-muted);
+                text-align: center;
+              "
+            >
+              📹 Felicitación de la familia
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- BLOQUE III: AMIGOS                         -->
+      <!-- ========================================== -->
+
+      <div>
+
+        <div class="module-banner">
+
+          <h2>
+            [BLOQUE III] // MENSAJES DE TUS AMIGOS
+          </h2>
+
+          <span class="module-tag">
+            VOICE INTERCEPTS
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="section-card">
+
+        <p class="card-text">
+
+          Transmisiones de audio interceptadas desde distintos puntos.
+          Conecta los auriculares:
+
+        </p>
+
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+          "
+        >
+
+          <!-- Canal 1: La Cuadrilla -->
+
+          <div class="audio-player-box">
+
+            <div class="audio-title">
+
+              <span>🎙️</span>
+
+              <strong>
+                CANAL 01 // La Cuadrilla (Casa)
+              </strong>
+
+            </div>
+
+            <audio
+              controls
+              preload="none"
+            >
+
+              <source
+                src="audios_cuadrilla.mp3"
+                type="audio/mpeg"
+              >
+
+              Tu navegador no soporta audio.
+
+            </audio>
+
+          </div>
+
+
+          <!-- Canal 2: Amigos Erasmus -->
+
+          <div class="audio-player-box">
+
+            <div class="audio-title">
+
+              <span>🎙️</span>
+
+              <strong>
+                CANAL 02 // Red Internacional (Erasmus)
+              </strong>
+
+            </div>
+
+            <audio
+              controls
+              preload="none"
+            >
+
+              <source
+                src="audios_erasmus.mp3"
+                type="audio/mpeg"
+              >
+
+              Tu navegador no soporta audio.
+
+            </audio>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ========================================== -->
+      <!-- BLOQUE FINAL: CANDADO FÍSICO               -->
+      <!-- ========================================== -->
+
+      <div
+        class="section-card"
+        style="border-color: rgba(34, 197, 94, 0.4);"
+      >
+
+        <div class="section-header">
+
+          <span class="section-title">
+            07_FINAL_PAYLOAD // CANDADO FÍSICO
+          </span>
+
+          <span
+            style="
+              font-size: 0.72rem;
+              color: var(--accent);
+            "
+          >
+            TSA LOCK
+          </span>
+
+        </div>
+
+        <p class="card-text">
+
+          Para abrir la caja física que tienes delante,
+          ejecuta el protocolo en tu terminal:
+
+        </p>
+
+        <div class="terminal-box">
+
+          <div class="cmd-line">
+            $ git clone https://github.com/MariaIbaez/bday-protocol-2026.git
+          </div>
+
+          <div class="cmd-line">
+            $ cd bday-protocol-2026
+          </div>
+
+          <div class="cmd-line">
+            $ python3 decrypt.py
+          </div>
+
+        </div>
+
+        <div
+          style="
+            font-size: 0.72rem;
+            color: var(--text-muted);
+          "
+        >
+          Responde a las preguntas de seguridad para obtener
+          la clave del candado.
+        </div>
+
+      </div>
+
 
     </div>
 
-</section>
+  </div>
 
 
-</div>
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT                                 -->
+  <!-- ========================================== -->
 
-</main>
+  <script>
 
+    /*
+     * 6 de noviembre de 2026
+     * 00:00:00
+     * Ridgewood, New York
+     *
+     * Nueva York estará en EST/EDT según corresponda.
+     * El offset -04:00 corresponde al horario de verano
+     * vigente el 6 de noviembre de 2026.
+     */
 
-<footer class="footer">
-
-    RIDGWOOD-NYC // PRIVATE ARCHIVE // 2026
-
-</footer>
-
-
-<script>
-
-/* ==========================================
-   COUNTDOWN
-   6 NOVIEMBRE 2026 - RIDGEWOOD, NEW YORK
-   ========================================== */
-
-const targetDate =
-    new Date('2026-10-06T00:00:00-04:00').getTime();
-
-const lockScreen =
-    document.getElementById('lockScreen');
-
-const protocol =
-    document.getElementById('protocol');
-
-const status =
-    document.getElementById('status');
-
-const countdown =
-    document.getElementById('countdown');
+    const targetDate =
+      new Date('2026-11-06T00:00:00-04:00').getTime();
 
 
-function updateCountdown() {
+    function updateProtocol() {
 
-    const now = new Date().getTime();
+      const now = new Date().getTime();
 
-    const distance = targetDate - now;
+      const distance =
+        targetDate - now;
 
 
-    if (distance <= 0) {
+      /*
+       * PROTOCOLO DESBLOQUEADO
+       */
 
-        lockScreen.style.display = 'none';
+      if (distance <= 0) {
 
-        protocol.style.display = 'block';
+        document.getElementById('lockScreen').style.display = 'none';
 
-        status.textContent = 'UNLOCKED';
+        document.getElementById('unlockedScreen').style.display = 'flex';
 
-        status.classList.remove('locked');
 
-        status.classList.add('unlocked');
+        const statusTag =
+          document.getElementById('statusTag');
+
+        statusTag.className =
+          'status-badge status-unlocked';
+
+
+        document.getElementById('statusText').innerText =
+          'AUTHORIZED // UNLOCKED';
 
         return;
+      }
+
+
+      /*
+       * CUENTA ATRÁS
+       */
+
+      const days =
+        Math.floor(
+          distance /
+          (1000 * 60 * 60 * 24)
+        );
+
+
+      const hours =
+        Math.floor(
+          (distance %
+            (1000 * 60 * 60 * 24)) /
+          (1000 * 60 * 60)
+        );
+
+
+      const minutes =
+        Math.floor(
+          (distance %
+            (1000 * 60 * 60)) /
+          (1000 * 60)
+        );
+
+
+      const seconds =
+        Math.floor(
+          (distance %
+            (1000 * 60)) /
+          1000
+        );
+
+
+      document.getElementById('countdown').innerHTML =
+
+        `${String(days).padStart(2, '0')}d : ` +
+        `${String(hours).padStart(2, '0')}h : ` +
+        `${String(minutes).padStart(2, '0')}m : ` +
+        `${String(seconds).padStart(2, '0')}s`;
 
     }
 
 
-    const days =
-        Math.floor(distance / (1000 * 60 * 60 * 24));
+    /*
+     * Actualizar cada segundo
+     */
 
-    const hours =
-        Math.floor(
-            (distance % (1000 * 60 * 60 * 24))
-            / (1000 * 60 * 60)
-        );
+    setInterval(updateProtocol, 1000);
 
-    const minutes =
-        Math.floor(
-            (distance % (1000 * 60 * 60))
-            / (1000 * 60)
-        );
+    updateProtocol();
 
-    const seconds =
-        Math.floor(
-            (distance % (1000 * 60))
-            / 1000
-        );
-
-
-    countdown.textContent =
-        `${String(days).padStart(2, '0')}:` +
-        `${String(hours).padStart(2, '0')}:` +
-        `${String(minutes).padStart(2, '0')}:` +
-        `${String(seconds).padStart(2, '0')}`;
-}
-
-
-updateCountdown();
-
-setInterval(updateCountdown, 1000);
-
-</script>
+  </script>
 
 </body>
 </html>
+```
