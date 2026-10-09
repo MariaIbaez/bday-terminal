@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PROTOCOL-26 // Ridgewood, NY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,6 +82,9 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
 audio,video{width:100%;display:block;color-scheme:dark}
 audio{height:40px}
 video{border-radius:4px;background:#000}
+.listen{border:1px dashed var(--line);border-radius:6px;padding:.7rem .9rem;margin:0 0 1.2rem}
+.listen[hidden]{display:none}
+.listen p{font-size:.72rem;color:var(--muted);margin-bottom:.5rem}
 .intro{font-family:var(--serif);font-size:1.1rem;line-height:1.7;color:#cfcabd;margin-bottom:1.4rem}
 
 /* final */
@@ -127,10 +130,10 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
 
     <section class="hello">
       <small>acceso concedido</small>
-      <h2>Feliz cumpleaños Mariete.</h2>
-      <p>Antes de seguir, aunque ya te he felicitado en esa carta queria ponerte una felicitación cortita:</p>
+      <h2>Feliz cumpleaños, Mariete.</h2>
+      <p>Antes de seguir, aunque ya te he felicitado en esa carta, quería ponerte una felicitación cortita:</p>
       <p>Felices 24 a la persona con la que quiero seguir compartiendo todos los años que nos queden por delante.</p>
-      <p>Ahora sí depues de esta cosita pequeña. Vamos a echar la vista atrás de nuestra historia y recordar un poquito todo lo que hemos vivido para llegar hasta aquí.</p>
+      <p>Ahora sí, después de esta cosita pequeña. Vamos a echar la vista atrás de nuestra historia y recordar un poquito todo lo que hemos vivido para llegar hasta aquí.</p>
     </section>
 
     <div class="part">Nuestra historia <span>cinco años</span></div>
@@ -142,9 +145,10 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
         <h3>Cómo empezó todo</h3>
         <figure class="ph"><img src="origen.JPG" alt="Cómo empezó todo" loading="lazy"><figcaption></figcaption></figure>
         <div class="player">
-          <p>🎵 Canción que siempre me recordara a ti y que describia lo nuestro a la perfección</p>
+          <p>🎵 Una canción que siempre me recordará a ti y que describía lo nuestro a la perfección</p>
           <audio controls preload="metadata"><source src="cancion.mp3" type="audio/mpeg">Tu navegador no soporta el reproductor de audio.</audio>
         </div>
+        <div class="listen"><p>🎧 Escúchalo, si prefieres que te lo lea</p><audio controls preload="metadata"><source src="lectura_origen.mp3" type="audio/mpeg"></audio></div>
         <div class="letter">
           <p>Todo empezó en Bilbao. Quién nos diría cuando nos conocimos que hoy estaríamos aquí...</p>
           <p>Aunque en realidad no empezó el día que nos vimos por primera vez. Éramos amigos y, aunque tú pensases que me caías mal, la verdad es que simplemente te veía como un chico muy serio. Pero me lo pasaba increíble de fiesta contigo y siempre pensé que tienes la sonrisa más bonita del mundo; esa misma sonrisa que a día de hoy quiero a mi lado todos los días de mi vida.</p>
@@ -158,6 +162,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
         <div class="yr">2021</div>
         <h3>Primer año</h3>
         <figure class="ph"><img src="ano1.jpeg" alt="Año 1" loading="lazy"><figcaption></figcaption></figure>
+        <div class="listen"><p>🎧 Escúchalo, si prefieres que te lo lea</p><audio controls preload="metadata"><source src="lectura_ano1.mp3" type="audio/mpeg"></audio></div>
         <div class="letter">
           <p>El primer año fue intenso; intensísimo a nivel de sentimientos por mi parte.</p>
           <p>Te metiste en mi cabeza, en mi corazón y en todo mi ser. No sabía cómo gestionar todo lo que estaba sintiendo... en realidad, no sabía gestionar absolutamente nada. Venía de otras relaciones donde había sufrido mucho y donde había normalizado cosas que tú me enseñaste (y me sigues enseñando a día de hoy) que no lo eran.</p>
@@ -171,6 +176,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
         <div class="yr">2022</div>
         <h3>Segundo año</h3>
         <figure class="ph"><img src="ano2.jpeg" alt="Año 2" loading="lazy"><figcaption></figcaption></figure>
+        <div class="listen"><p>🎧 Escúchalo, si prefieres que te lo lea</p><audio controls preload="metadata"><source src="lectura_ano2.mp3" type="audio/mpeg"></audio></div>
         <div class="letter">
           <p>Y llegó el segundo año. Un año de cambios, de poner nombres a las cosas y formalizar lo nuestro, pero también podría decir que, para mí, el año más duro de todos los que llevamos.</p>
           <p>Un año en el que a los dos nos tocó tragar mucho. Un año en el que mis inseguridades pudieron más que cualquier otra cosa, pero también el año en el que no dejé de confirmar que te quería para siempre en mi vida: que cuando estaba contigo, el resto del mundo desaparecía. Solo quería que me mirases a mí, que pensases en mí y que sintieses que no querías estar en ningún otro lugar del planeta que no fuese ahí conmigo.</p>
@@ -183,6 +189,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
         <div class="yr">2023</div>
         <h3>Tercer año</h3>
         <figure class="ph"><img src="ano3.jpeg" alt="Año 3" loading="lazy"><figcaption></figcaption></figure>
+        <div class="listen"><p>🎧 Escúchalo, si prefieres que te lo lea</p><audio controls preload="metadata"><source src="lectura_ano3.mp3" type="audio/mpeg"></audio></div>
         <div class="letter">
           <p>Y llegó el tercer año. Un Erasmus de por medio y ese miedo frío recorriéndome el cuerpo de si seríamos capaces de superarlo... Pero lo fuimos, y con creces.</p>
           <p>Demostramos ser dos personas maduras, que se quieren de verdad, que saben comunicarse y que tienen clarísimo que son el uno para el otro; que nadie puede interponerse en medio porque, sencillamente, no existe nadie más.</p>
@@ -194,6 +201,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
         <div class="yr">2024</div>
         <h3>Cuarto año</h3>
         <figure class="ph"><img src="ano4.jpeg" alt="Año 4" loading="lazy"><figcaption></figcaption></figure>
+        <div class="listen"><p>🎧 Escúchalo, si prefieres que te lo lea</p><audio controls preload="metadata"><source src="lectura_ano4.mp3" type="audio/mpeg"></audio></div>
         <div class="letter">
           <p>Y ya vamos por el cuarto año, cuando nadie daba un duro por nosotros. Un año en el que pasé una gran parte viviendo en nuestra ciudad... y digo nuestra porque Donosti ya es un poquito mía también.</p>
           <p>Me has hecho sentir siempre en casa; me has hecho parte de tus amigos, de tu familia... Y es que no puedo tener más suerte de sentirme tan querida allá donde me lleves. Gracias por quererme, por apoyarme, por levantarme cada vez que me caigo y, sobre todo, por poner tu pechito todas las noches al ir a dormir, porque fue un año duro de pechito, eh jajajaja.</p>
@@ -205,6 +213,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
         <div class="yr">2025</div>
         <h3>Quinto año</h3>
         <figure class="ph"><img src="ano5.jpeg" alt="Año 5" loading="lazy"><figcaption></figcaption></figure>
+        <div class="listen"><p>🎧 Escúchalo, si prefieres que te lo lea</p><audio controls preload="metadata"><source src="lectura_ano5.mp3" type="audio/mpeg"></audio></div>
         <div class="letter">
           <p>Empezamos viviendo en Bilbao, venías muchísimo a verme, a pasar tiempo conmigo, a hacerme la cena y a cuidar de mí con esa infinidad de detalles que tienes siempre. Es que lo mío contigo es pura suerte.</p>
           <p>Pero luego llegó el momento de decidir echar a la Global Training. Y aunque siempre te he apoyado y siempre lo haré, no te voy a negar que una parte de mí deseaba que no te fueses: no sabía si podía permitirme tenerte tan lejos, sentirte a tantos kilómetros cuando lo único que quería era tenerte pegado a mí. Pero habría sido muy egoísta por mi parte retenerte; siempre voy a querer lo mejor para ti. Sabía que esto solo sería una etapa, una temporada que nos haría aún más fuertes como pareja y en la que tú crecerías como persona, como profesional y en todo. Siempre pensé, y sigo pensando, que Nueva York tiene muchísima suerte de tenerte.</p>
@@ -218,6 +227,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
         <div class="yr">Familia</div>
         <h3>Parte de la familia</h3>
         <figure class="ph"><img src="perritos.jpeg" alt="Nuestros perritos" loading="lazy"><figcaption></figcaption></figure>
+        <div class="listen"><p>🎧 Escúchalo, si prefieres que te lo lea</p><audio controls preload="metadata"><source src="lectura_perritos.mp3" type="audio/mpeg"></audio></div>
         <div class="letter">
           <p>Por último, quería poner esta foto porque para mí tiene muchísima importancia.</p>
           <p>Que quieras a mis perritos tanto como yo y que tengas tan claro que son uno más de mi familia, y que los quieras y los cuides como tal, es algo que para mí significa muchísimo. Puede parecer una tontería, pero para mí dice muchísimo de ti como persona. Porque quererme a mí también es querer las cosas y las personas que forman parte de mi vida, y tú lo haces de una manera tan natural que no puedo estar más agradecida.</p>
@@ -230,13 +240,13 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
     </div>
 
     <div class="part">Tu familia <span>vídeo</span></div>
-    <p class="intro">Se que este día va a ser duro lejos de la gente que quieres y ójala poder estar ahi pero he intentado que te sientas un poco más en casa.</p>
+    <p class="intro">Sé que este día va a ser duro lejos de la gente que quieres y ojalá poder estar ahí, pero he intentado que te sientas un poco más en casa.</p>
     <div class="player">
       <video controls preload="metadata" playsinline><source src="familia1.mp4" type="video/mp4">Tu navegador no soporta vídeo.</video>
     </div>
 
     <div class="part">Tus amigos <span>audio</span></div>
-    <p class="intro">Y por supuesto no podia dejar fuera a una pequeña parte de tí a la que estoy segura que echas mucho de menos. Conecta los auriculares:</p>
+    <p class="intro">Y por supuesto no podía dejar fuera a una pequeña parte de ti a la que estoy segura de que echas mucho de menos. Conecta los auriculares:</p>
     <div class="player">
       <p>🎙️ La cuadrilla</p>
       <audio controls preload="none"><source src="audios_cuadrilla.mp3" type="audio/mpeg">Tu navegador no soporta audio.</audio>
@@ -321,6 +331,16 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
     img.addEventListener('error', () => { if(n < exts.length) img.src = base + '.' + exts[n++]; else fail(); });
     if(img.complete && img.naturalWidth === 0 && img.getAttribute('src')) img.loading = 'eager';
   });
+
+  // Si todavía no existe el audio de lectura, se oculta su reproductor
+  document.querySelectorAll('.listen audio').forEach(a => {
+    const src = a.querySelector('source');
+    src.addEventListener('error', () => { a.closest('.listen').hidden = true; });
+  });
+  // Solo suena un audio/vídeo a la vez
+  document.addEventListener('play', e => {
+    document.querySelectorAll('audio,video').forEach(m => { if(m !== e.target) m.pause(); });
+  }, true);
 
   document.querySelectorAll('audio').forEach(a => a.addEventListener('error', () =>
     console.error('Error de audio:', a.currentSrc, a.error && a.error.code)));
