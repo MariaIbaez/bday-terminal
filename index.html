@@ -277,7 +277,7 @@ footer{text-align:center;color:var(--muted);font-size:.7rem;padding:3rem 0 4rem;
 (function(){
   // 6 nov 2026, 00:00 en Nueva York (EST/EDT = -04:00 hasta el 1 nov; el 6 nov ya es EST = -05:00)
   const target = new Date('2026-11-06T00:00:00-05:00').getTime();
-  // MODO PRUEBA: true = abierto ya (con la secuencia de arranque). Ponlo en false cuando esté todo definitivo.
+  // MODO PRUEBA: false = abierto ya (con la secuencia de arranque). Ponlo en false cuando esté todo definitivo.
   const MODO_PRUEBA = true;
   const preview = false;
   const $ = id => document.getElementById(id);
